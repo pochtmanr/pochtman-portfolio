@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 186 67% 87%;
+    --foreground: 208 46% 57%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 208 46% 57%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 208 46% 57%;
+    
+    --primary: 208 46% 57%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 55 77% 61%;
+    --secondary-foreground: 208 46% 57%;
+    
+    --muted: 186 67% 87%;
+    --muted-foreground: 208 46% 57%;
+    
+    --accent: 55 77% 61%;
+    --accent-foreground: 208 46% 57%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 208 46% 57%;
+    --input: 208 46% 57%;
+    --ring: 208 46% 57%;
+    
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 208 46% 57%;
+    --foreground: 186 67% 87%;
+    
+    --card: 186 67% 87%;
+    --card-foreground: 208 46% 57%;
+    
+    --popover: 186 67% 87%;
+    --popover-foreground: 208 46% 57%;
+    
+    --primary: 55 77% 61%;
+    --primary-foreground: 208 46% 57%;
+    
+    --secondary: 186 67% 87%;
+    --secondary-foreground: 208 46% 57%;
+    
+    --muted: 208 46% 57%;
+    --muted-foreground: 186 67% 87%;
+    
+    --accent: 55 77% 61%;
+    --accent-foreground: 208 46% 57%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 55 77% 61%;
+    --input: 55 77% 61%;
+    --ring: 55 77% 61%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Urbanist', sans-serif;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(200%) skewX(12deg);
+  }
+}

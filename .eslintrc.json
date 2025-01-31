@@ -1,0 +1,11 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "import/no-unresolved": [
+      "error", 
+      { 
+        "ignore": ["\\.(?:jpg|jpeg|png|gif|svg)$"] 
+      }
+    ]
+  }
+}
