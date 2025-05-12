@@ -8,12 +8,16 @@ import { ExternalLink, X } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useState } from 'react';
+import { useLanguage } from '@/lib/LanguageContext';
 import { 
   SiNextdotjs, 
   SiTypescript, 
   SiTailwindcss, 
   SiFirebase, 
   SiNodedotjs, 
+  SiReact,
+  SiSwift,
+  SiOpenai
 } from 'react-icons/si'; 
 
 interface Project {
@@ -43,63 +47,107 @@ export default function Portfolio() {
   });
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { t, language, getProjectTranslation } = useLanguage();
 
+  // Project data with technology icons
+  const projectTechnologies = {
+    growMates: [
+      {
+        name: "React",
+        icon: SiReact,
+        color: "hover:text-blue-400"
+      },
+      {
+        name: "TypeScript",
+        icon: SiTypescript,
+        color: "hover:text-blue-500"
+      },
+      {
+        name: "Swift",
+        icon: SiSwift,
+        color: "hover:text-orange-500"
+      },
+      {
+        name: "OpenAI",
+        icon: SiOpenai,
+        color: "hover:text-green-500"
+      }
+    ],
+    templateWorks: [
+      {
+        name: "Next.js",
+        icon: SiNextdotjs,
+        color: "hover:text-black"
+      },
+      {
+        name: "TypeScript",
+        icon: SiTypescript,
+        color: "hover:text-blue-500"
+      },
+      {
+        name: "Tailwind CSS",
+        icon: SiTailwindcss,
+        color: "hover:text-cyan-400"
+      },
+      {
+        name: "Firebase",
+        icon: SiFirebase,
+        color: "hover:text-orange-500"
+      },
+      {
+        name: "Node.js",
+        icon: SiNodedotjs,
+        color: "hover:text-green-500"
+      }
+    ]
+  };
+
+  // Construct projects with translations
   const projects: Project[] = [
-    {
-      title: "TemplateWorks",
-      description: "A web-based tool designed to enhance efficiency in customer support and business communication through automated templates and case resolution management.",
-      longDescription: "TemplateWorks is a web-based tool designed to enhance efficiency in customer support and business communication. It allows users to create and manage chat/email templates and case resolution steps in multiple languages. The platform dynamically adapts templates based on the recipient's name and gender, making it particularly useful for languages like Hebrew, where gender-specific grammar is required.",
-      image: "/assets/images/projects/Templateworks/Main.png",
-      tags: ["Next.js", "TypeScript", "Tailwind CSS", "SaaS"],
-      link: "https://templateworks.online",
-      screenshots: [
-        {
-          title: "Case Resolutions",
-          image: "/assets/images/projects/Templateworks/CaseResolution.png",
-          description: "Standardize and streamline issue resolution workflows with step-by-step guides. Teams can create, search, and follow structured resolution processes, ensuring consistent problem-solving across the organization."
-        },
-        {
-          title: "Template Management",
-          image: "/assets/images/projects/Templateworks/Templates.png",
-          description: "Create and manage dynamic templates that automatically adapt based on recipient's name and gender. Perfect for multi-language support, especially for languages with gender-specific grammar like Hebrew."
-        }
-      ],
-      technologies: [
-        {
-          name: "Next.js",
-          icon: SiNextdotjs,
-          color: "hover:text-black"
-        },
-        {
-          name: "TypeScript",
-          icon: SiTypescript,
-          color: "hover:text-blue-500"
-        },
-        {
-          name: "Tailwind CSS",
-          icon: SiTailwindcss,
-          color: "hover:text-cyan-400"
-        },
-        {
-          name: "Firebase",
-          icon: SiFirebase,
-          color: "hover:text-orange-500"
-        },
-        {
-          name: "Node.js",
-          icon: SiNodedotjs,
-          color: "hover:text-green-500"
-        }
-      ],
-      features: [
-        "Automated Templates with Dynamic Adaptation",
-        "Multi-Language Support",
-        "Gender-Specific Grammar Handling",
-        "Structured Case Resolution Steps",
-        "Searchable Knowledge Base",
-        "Team Collaboration Tools"
-      ]
-    }
+    (() => {
+      const growMatesTranslation = getProjectTranslation('growMates');
+      return {
+        title: growMatesTranslation.title,
+        description: growMatesTranslation.description,
+        longDescription: growMatesTranslation.longDescription,
+        image: "/assets/images/projects/GrowMates/Main.png",
+        tags: growMatesTranslation.tags,
+        link: "https://growmates-chi.vercel.app/ai-adviser",
+        screenshots: growMatesTranslation.screenshots.map((screenshot: any, index: number) => ({
+          title: screenshot.title,
+          description: screenshot.description,
+          image: [
+            "/assets/images/projects/GrowMates/Dash.png",
+            "/assets/images/projects/GrowMates/Recommendations.png",
+            "/assets/images/projects/GrowMates/Callendar.png",
+            "/assets/images/projects/GrowMates/IOS.PNG"
+          ][index]
+        })),
+        technologies: projectTechnologies.growMates,
+        features: growMatesTranslation.features
+      };
+    })(),
+    (() => {
+      const templateWorksTranslation = getProjectTranslation('templateWorks');
+      return {
+        title: templateWorksTranslation.title,
+        description: templateWorksTranslation.description,
+        longDescription: templateWorksTranslation.longDescription,
+        image: "/assets/images/projects/Templateworks/Main.png",
+        tags: templateWorksTranslation.tags,
+        link: "https://templateworks.online",
+        screenshots: templateWorksTranslation.screenshots.map((screenshot: any, index: number) => ({
+          title: screenshot.title,
+          description: screenshot.description,
+          image: [
+            "/assets/images/projects/Templateworks/CaseResolution.png",
+            "/assets/images/projects/Templateworks/Templates.png"
+          ][index]
+        })),
+        technologies: projectTechnologies.templateWorks,
+        features: templateWorksTranslation.features
+      };
+    })()
   ];
 
   const containerVariants = {
@@ -146,9 +194,9 @@ export default function Portfolio() {
         className="container mx-auto px-4 relative z-10 py-20"
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4 ">Recent Works</h2>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 ">{t('recentWorks')}</h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            A selection of my recent web development projects and marketing campaigns
+            {t('recentWorksDescription')}
           </p>
         </motion.div>
 
@@ -192,7 +240,7 @@ export default function Portfolio() {
                     className="w-full bg-custom-blue text-white group-hover:bg-custom-blue/80 group-hover:text-white transition-all duration-300"
                     onClick={() => window.open(project.link, '_blank')}
                   >
-                    View Project <ExternalLink className="w-4 h-4 ml-2" />
+                    {t('viewProject')} <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
               </Card>
@@ -215,10 +263,10 @@ export default function Portfolio() {
 
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-2xl mb-3 text-custom-blue/80">Overview</h3>
+                  <h3 className="text-2xl mb-3 text-custom-blue/80">{t('overview')}</h3>
                   <p className="text-gray-700 mb-6">{selectedProject?.longDescription}</p>
                   
-                  <h4 className="text-2xl mb-4 text-custom-blue/80">Technologies Used</h4>
+                  <h4 className="text-2xl mb-4 text-custom-blue/80">{t('technologiesUsed')}</h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {selectedProject?.technologies.map((tech, index) => {
                       const Icon = tech.icon;
@@ -238,7 +286,7 @@ export default function Portfolio() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl mb-3 text-custom-blue/80">Features</h3>
+                  <h3 className="text-2xl mb-3 text-custom-blue/80">{t('features')}</h3>
                   <div className="grid gap-8">
                     {selectedProject?.screenshots.map((screenshot, index) => (
                       <div key={index} className="space-y-4">
@@ -261,7 +309,7 @@ export default function Portfolio() {
                     size="lg"
                     onClick={() => window.open(selectedProject?.link, '_blank')}
                   >
-                    Visit Website <ExternalLink className="w-4 h-4 ml-2" />
+                    {t('visitWebsite')} <ExternalLink className="w-4 h-4 ml-2" />
                   </Button>
                 </div>
               </div>

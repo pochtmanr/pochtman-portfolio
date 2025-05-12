@@ -12,13 +12,15 @@ import {
   PenTool,
   X,
   ArrowDown,
-  Code2
+  Code2,
+  Smartphone
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/lib/LanguageContext';
 
 interface Service {
   AnimatedIcon: React.FC;
@@ -83,6 +85,24 @@ const MarketingAnimation = () => (
   </motion.div>
 );
 
+const iOSAppAnimation = () => (
+  <motion.div className="relative h-48 w-full bg-gradient-to-r from-blue-50 to-blue-100 flex items-center justify-center">
+    <motion.div
+      animate={{
+        y: [-5, 5, -5],
+        rotate: [0, 5, 0, -5, 0],
+      }}
+      transition={{
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      <Smartphone className="w-24 h-24 text-custom-blue" />
+    </motion.div>
+  </motion.div>
+);
+
 export default function Services() {
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -90,59 +110,33 @@ export default function Services() {
   });
 
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const { t } = useLanguage();
 
   const services: Service[] = [
     {
       AnimatedIcon: WebDevAnimation,
       icon: Code2,
-      title: "Website Development",
-      description: "Custom websites built with modern frameworks and responsive design principles.",
-      longDescription: "From simple landing pages to complex e-commerce solutions, I create custom websites that are fast, responsive, and user-friendly. Using modern frameworks like React and Next.js, I ensure your website is built with the latest technology and best practices. Each project includes responsive design, SEO optimization, and performance tuning.",
+      title: t('service1Title'),
+      description: t('service1Desc'),
+      longDescription: t('service1LongDesc'),
       pricing: {
         basic: {
-          price: "500€",
-          name: "Landing Page",
-          includes: [
-            "Single Page Design",
-            "Mobile Responsive",
-            "Basic SEO Setup",
-            "Contact Form",
-            "5 Content Sections"
-          ]
+          price: t('service1PriceBasic'),
+          name: t('service1NameBasic'),
+          includes: t('service1IncludesBasic').split('|')
         },
         standard: {
-          price: "1,000€",
-          name: "Multi-page Website",
-          includes: [
-            "Up to 5 Pages",
-            "Custom Design",
-            "Advanced SEO",
-            "Blog Setup",
-            "Social Media Integration",
-            "Analytics Setup"
-          ]
+          price: t('service1PriceStandard'),
+          name: t('service1NameStandard'),
+          includes: t('service1IncludesStandard').split('|')
         },
         premium: {
-          price: "2,000€",
-          name: "E-commerce Solution",
-          includes: [
-            "Full E-commerce Setup",
-            "Product Management",
-            "Payment Integration",
-            "Custom Features",
-            "Premium Support",
-            "Marketing Integration"
-          ]
+          price: t('service1PricePremium'),
+          name: t('service1NamePremium'),
+          includes: t('service1IncludesPremium').split('|')
         }
       },
-      features: [
-        "Responsive Design",
-        "SEO Optimization",
-        "Performance Tuning",
-        "Modern Frameworks (React, Next.js)",
-        "Custom Functionality",
-        "Content Management System"
-      ],
+      features: t('service1Features').split('|'),
       images: [
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2015&q=80",
         "https://images.unsplash.com/photo-1517180102446-f3ece451e9d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
@@ -151,58 +145,61 @@ export default function Services() {
     {
       AnimatedIcon: MarketingAnimation,
       icon: Share2,
-      title: "Social Media Marketing",
-      description: "Comprehensive digital marketing solutions including social media, Google Ads, and analytics.",
-      longDescription: "A complete digital marketing package that combines social media management, paid advertising, and performance tracking. Services include campaign management across Meta platforms and Google Ads, detailed analytics reporting, and strategic optimization to maximize your ROI.",
+      title: t('service2Title'),
+      description: t('service2Desc'),
+      longDescription: t('service2LongDesc'),
       pricing: {
         basic: {
-          price: "300€ /month",
-          name: "Basic Package",
-          includes: [
-            "Meta Platforms Management",
-            "Basic Google Ads Setup",
-            "Monthly Analytics Report",
-            "Basic Content Creation",
-            "Community Management"
-          ]
+          price: t('service2PriceBasic'),
+          name: t('service2NameBasic'),
+          includes: t('service2IncludesBasic').split('|')
         },
         standard: {
-          price: "800€ /month",
-          name: "Standard Package",
-          includes: [
-            "Advanced Meta Management",
-            "Full Google Ads Management",
-            "Weekly Analytics Reports",
-            "Regular Content Creation",
-            "Community Management",
-          ]
+          price: t('service2PriceStandard'),
+          name: t('service2NameStandard'),
+          includes: t('service2IncludesStandard').split('|')
         },
         premium: {
-          price: "1,500€ /month",
-          name: "Premium Package",
-          includes: [
-            "Premium Meta & Google Management",
-            "Advanced Analytics & Reporting",
-            "Daily Content Creation",
-            "Priority Support",
-            "Strategy Development",
-            "ROI Optimization"
-          ]
+          price: t('service2PricePremium'),
+          name: t('service2NamePremium'),
+          includes: t('service2IncludesPremium').split('|')
         }
       },
-      features: [
-        "Meta Platforms Management",
-        "Google Ads Campaigns",
-        "Analytics & Reporting",
-        "Content Creation",
-        "Community Management",
-        "Performance Optimization"
-      ],
+      features: t('service2Features').split('|'),
       images: [
         "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1174&q=80",
         "https://images.unsplash.com/photo-1611926653458-09294b3142bf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
       ]
     },
+    {
+      AnimatedIcon: iOSAppAnimation,
+      icon: Smartphone,
+      title: t('service3Title'),
+      description: t('service3Desc'),
+      longDescription: t('service3LongDesc'),
+      pricing: {
+        basic: {
+          price: t('service3PriceBasic'),
+          name: t('service3NameBasic'),
+          includes: t('service3IncludesBasic').split('|')
+        },
+        standard: {
+          price: t('service3PriceStandard'),
+          name: t('service3NameStandard'),
+          includes: t('service3IncludesStandard').split('|')
+        },
+        premium: {
+          price: t('service3PricePremium'),
+          name: t('service3NamePremium'),
+          includes: t('service3IncludesPremium').split('|')
+        }
+      },
+      features: t('service3Features').split('|'),
+      images: [
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
+        "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+      ]
+    }
   ];
 
   const containerVariants = {
@@ -246,9 +243,9 @@ export default function Services() {
         className="container mx-auto px-4 relative z-10 py-20"
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-custom-blue">My Services</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-custom-blue">{t('servicesTitle')}</h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Comprehensive web development and digital marketing solutions tailored to help your business grow
+            {t('servicesSubtitle')}
           </p>
         </motion.div>
 
@@ -298,7 +295,7 @@ export default function Services() {
       <Dialog open={!!selectedService} onOpenChange={() => setSelectedService(null)} >
         <DialogContent className="max-w-[95vw] md:max-w-[80vw] max-h-[90vh] md:max-h-[80vh] p-0 border-none rounded-lg">
           <DialogTitle className="sr-only text-custom-blue text-2xl">
-            {selectedService?.title} Service Details
+            {selectedService?.title} {t('serviceDetails')}
           </DialogTitle>
           <ScrollArea className="h-[90vh] md:h-[80vh] bg-white rounded-lg">
             <div className="p-4 md:p-6">
@@ -313,12 +310,12 @@ export default function Services() {
 
               <div className="space-y-6 md:space-y-8">
                 <div>
-                  <h3 className="text-lg md:text-xl  mb-2 md:mb-3 text-custom-blue/80">Overview</h3>
+                  <h3 className="text-lg md:text-xl  mb-2 md:mb-3 text-custom-blue/80">{t('overview')}</h3>
                   <p className="text-gray-500 text-sm md:text-base">{selectedService?.longDescription}</p>
                 </div>
 
                 <div>
-                  <h3 className="text-lg md:text-xl mb-2 md:mb-3 text-custom-blue/80">Key Features</h3>
+                  <h3 className="text-lg md:text-xl mb-2 md:mb-3 text-custom-blue/80">{t('keyFeatures')}</h3>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     {selectedService?.features.map((feature, index) => (
                       <li key={index} className="text-gray-500 text-sm md:text-base flex items-center gap-2">
@@ -330,7 +327,7 @@ export default function Services() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg md:text-xl mb-2 md:mb-3 text-custom-blue/80">Pricing</h3>
+                  <h3 className="text-lg md:text-xl mb-2 md:mb-3 text-custom-blue/80">{t('pricing')}</h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {selectedService?.pricing && Object.entries(selectedService.pricing).map(([tier, details]) => (
                       <div key={tier} className="bg-gray-100 p-4 md:p-6 rounded-lg hover:shadow-lg transition-shadow">
@@ -361,7 +358,7 @@ export default function Services() {
                         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                       }}
                     >
-                      Contact Me
+                      {t('contactButton')}
                     </Button>
                     <Button
                       size="lg"
@@ -371,7 +368,7 @@ export default function Services() {
                         document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' });
                       }}
                     >
-                      View Works
+                      {t('viewWorks')}
                     </Button>
                   </div>
                 </div>

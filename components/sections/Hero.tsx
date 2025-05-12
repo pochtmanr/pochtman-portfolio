@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowDown, BarChart, Code, Facebook, Globe, Laptop, Rocket, Palette, Server, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ChartContainer } from '../ui/chart';
+import { useLanguage } from '@/lib/LanguageContext';
 
 // Updated component for animated icons
 const FloatingIcon = ({ icon: Icon, className }: { icon: any, className: string }) => {
@@ -27,6 +28,8 @@ const FloatingIcon = ({ icon: Icon, className }: { icon: any, className: string 
 };
 
 export default function Hero() {
+  const { t } = useLanguage();
+  
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Add diagonal background split */}
@@ -67,7 +70,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Web Developer & Digital Marketing Expert
+            {t('heroTitle')}
           </motion.h1>
           <motion.p
             className="text- md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto"
@@ -75,7 +78,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            Crafting innovative digital solutions that empower small businesses to thrive
+            {t('heroSubtitle')}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -87,7 +90,7 @@ export default function Hero() {
               className="mr-4"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              Get in Touch
+              {t('contactButton')}
             </Button>
             <Button
               
@@ -95,7 +98,7 @@ export default function Hero() {
               size="lg"
               onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
             >
-              View My Works
+              {t('heroButton')}
             </Button>
           </motion.div>
         </motion.div>

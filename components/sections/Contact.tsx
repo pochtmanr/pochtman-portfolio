@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { CheckCircle, XCircle } from "lucide-react";
 import confetti from 'canvas-confetti';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export default function Contact() {
   const [ref, inView] = useInView({
@@ -21,6 +22,7 @@ export default function Contact() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [showDialog, setShowDialog] = useState<'success' | 'error' | null>(null);
+  const { t } = useLanguage();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -82,18 +84,18 @@ export default function Contact() {
       const result = await response.json();
 
       if (result.success) {
-        toast.success("Message sent successfully!");
+        toast.success(t('messageSent'));
         e.currentTarget.reset();
         setShowDialog('success');
         triggerConfetti();
       } else {
         setShowDialog('error');
-        toast.error(result.error || "Failed to send message. Please try again.");
+        toast.error(result.error || t('messageFailed'));
       }
     } catch (error) {
       console.error('Error:', error);
       setShowDialog('error');
-      toast.error("An error occurred. Please try again later.");
+      toast.error(t('errorOccurred'));
     } finally {
       setIsLoading(false);
     }
@@ -109,16 +111,16 @@ export default function Contact() {
         className="container mx-auto px-4 relative z-10 py-20"
       >
         <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('contactTitle')}</h2>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-            Let's discuss how I can help your business grow through web development and digital marketing
+            {t('contactSubtitle')}
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <motion.div variants={itemVariants}>
             <Card className="p-6 border-none shadow-xl">
-              <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
+              <h3 className="text-xl font-semibold mb-6">{t('contactInfo')}</h3>
               <div className="space-y-4">
                 <div className="flex items-center">
                   <Mail className="w-5 h-5 mr-3 text-primary" />
@@ -126,15 +128,15 @@ export default function Contact() {
                 </div>
                 <div className="flex items-center">
                   <Phone className="w-5 h-5 mr-3 text-primary" />
-                  <a href="tel:+491763008888" className="text-gray-500 hover:text-primary transition-colors">+49 176 300 88 88 (German)</a>
+                  <a href="tel:+4917672198625" className="text-gray-500 hover:text-primary transition-colors">+49 176 721 98 625 ({t('german')})</a>
                 </div>
                 <div className="flex items-center">
                   <MapPin className="w-5 h-5 mr-3 text-primary" />
-                  <span className="text-gray-500">Dortmund, Germany</span>
+                  <span className="text-gray-500">Dortmund, {t('germany')}</span>
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-gray-200">
-                <h3 className="text-xl font-semibold mb-4">Social Media</h3>
+                <h3 className="text-xl font-semibold mb-4">{t('socialMedia')}</h3>
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <Linkedin className="w-5 h-5 mr-3 text-primary" />
@@ -146,7 +148,7 @@ export default function Contact() {
                   </div>
                   <div className="flex items-center">
                     <Twitter className="w-5 h-5 mr-3 text-primary" />
-                    <a href="https://x.com/RPochtman" className="text-gray-500 hover:text-primary transition-colors">X (Formerly Twitter)</a>
+                    <a href="https://x.com/RPochtman" className="text-gray-500 hover:text-primary transition-colors">{t('twitter')}</a>
                   </div>
                 </div>
               </div>
@@ -159,7 +161,7 @@ export default function Contact() {
                 <div>
                   <Input 
                     name="name"
-                    placeholder="Your Name"
+                    placeholder={t('yourName')}
                     className="bg-white text-gray-900 placeholder:text-gray-500 border-gray-300"
                     required
                   />
@@ -168,7 +170,7 @@ export default function Contact() {
                   <Input 
                     name="email"
                     type="email"
-                    placeholder="Your Email"
+                    placeholder={t('yourEmail')}
                     className="bg-white text-gray-900 placeholder:text-gray-500 border-gray-300"
                     required
                   />
@@ -176,7 +178,7 @@ export default function Contact() {
                 <div>
                   <Input 
                     name="subject"
-                    placeholder="Subject"
+                    placeholder={t('subject')}
                     className="bg-white text-gray-900 placeholder:text-gray-500 border-gray-300"
                     required
                   />
@@ -184,7 +186,7 @@ export default function Contact() {
                 <div>
                   <Textarea
                     name="message"
-                    placeholder="Your Message"
+                    placeholder={t('yourMessage')}
                     className="min-h-[120px] bg-white text-gray-900 placeholder:text-gray-500 border-gray-300"
                     required
                   />
@@ -194,7 +196,7 @@ export default function Contact() {
                   disabled={isLoading}
                   className="w-full bg-custom-blue text-white hover:bg-custom-blue/80"
                 >
-                  {isLoading ? "Sending..." : "Send Message"}
+                  {isLoading ? t('sending') : t('sendMessage')}
                 </Button>
               </form>
             </Card>
@@ -203,7 +205,7 @@ export default function Contact() {
       </motion.div>
       <div className="absolute bottom-4 left-0 right-0 text-center text-custom-blue/60 text-sm">
         <p>
-          Made with love by Roman Pochtman & Claude 3.5 © 2025
+          {t('footerText')}
         </p>
       </div>
 
@@ -225,15 +227,15 @@ export default function Contact() {
                 >
                   <CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
                 </motion.div>
-                <h2 className="text-2xl font-bold text-custom-blue mb-2">Thank You! 🎉</h2>
+                <h2 className="text-2xl font-bold text-custom-blue mb-2">{t('thankYou')} 🎉</h2>
                 <p className="text-custom-blue/80 mb-6">
-                  I appreciate you reaching out. I'll get back to you as soon as possible!
+                  {t('appreciateMessage')}
                 </p>
                 <Button
                   onClick={() => setShowDialog(null)}
                   className="bg-custom-blue text-white hover:bg-custom-blue/80"
                 >
-                  Close
+                  {t('close')}
                 </Button>
               </motion.div>
             )}
@@ -253,15 +255,15 @@ export default function Contact() {
                 >
                   <XCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
                 </motion.div>
-                <h2 className="text-2xl font-bold text-red-600 mb-2">Oops! 😕</h2>
+                <h2 className="text-2xl font-bold text-red-600 mb-2">{t('oops')} 😕</h2>
                 <p className="text-gray-600 mb-6">
-                  Something went wrong while sending your message. Please try again later.
+                  {t('errorMessage')}
                 </p>
                 <Button
                   onClick={() => setShowDialog(null)}
                   className="bg-red-600 text-white hover:bg-red-700"
                 >
-                  Close
+                  {t('close')}
                 </Button>
               </motion.div>
             )}
