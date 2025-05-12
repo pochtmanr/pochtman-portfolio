@@ -87,11 +87,11 @@ export default function About() {
             </div>
           </motion.div>
           <motion.div variants={leftVariants} className="space-y-6">
-            <p className="text-lg text-gray-500">
-              {t('aboutDesc1')}
+            <p className="text-lg text-gray-500" 
+              dangerouslySetInnerHTML={{ __html: t('aboutDesc1') }}>
             </p>
-            <p className="text-lg text-gray-500">
-              {t('aboutDesc2')}
+            <p className="text-lg text-gray-500"
+              dangerouslySetInnerHTML={{ __html: t('aboutDesc2') }}>
             </p>
           </motion.div>
 
@@ -127,8 +127,8 @@ export default function About() {
           >
             <Smartphone className="w-12 h-12 mb-4 text-custom-blue" />
             <h3 className="text-xl font-semibold mb-2 text-custom-blue">{t('aboutBox3Title')}</h3>
-            <p className="text-gray-500">
-              {t('aboutBox3Desc')}
+            <p className="text-gray-500"
+              dangerouslySetInnerHTML={{ __html: t('aboutBox3Desc') }}>
             </p>
           </motion.div>
         </div>
