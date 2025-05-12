@@ -84,17 +84,17 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
+            className="flex flex-wrap justify-center gap-4"
           >
             <Button
               size="lg"
-              className="mr-4"
+              className="min-w-[150px]"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
             >
               {t('contactButton')}
             </Button>
             <Button
-              
-              className="bg-white text-custom-blue hover:bg-custom-blue hover:text-white"
+              className="bg-white text-custom-blue hover:bg-custom-blue hover:text-white min-w-[150px]"
               size="lg"
               onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
             >
